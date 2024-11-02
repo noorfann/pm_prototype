@@ -1,7 +1,18 @@
-class Employee {
-  final int id;
-  final String name;
-  final String email;
+import 'package:core/common/enums.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:flutter/foundation.dart';
 
-  Employee({required this.id, required this.name, required this.email});
+part 'employee.freezed.dart';
+part 'employee.g.dart';
+
+@freezed
+class Employee with _$Employee {
+  const factory Employee(
+      {required int id,
+      required String name,
+      required String email,
+      required Gender gender}) = _Employee;
+
+  factory Employee.fromJson(Map<String, dynamic> json) =>
+      _$EmployeeFromJson(json);
 }

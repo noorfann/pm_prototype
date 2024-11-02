@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:core/core.dart';
+import 'package:pm_prototype/injection.dart';
 
 import 'routes/routes.dart';
 
-void main() {
+void main() async {
+  await init();
   runApp(const MyApp());
 }
 

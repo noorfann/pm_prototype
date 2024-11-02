@@ -1,3 +1,4 @@
+import 'package:core/common/enums.dart';
 import 'package:core/domain/entities/employee.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
@@ -8,12 +9,12 @@ class CriteriaTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<Employee> employees = List.generate(
-      100,
+      10,
       (index) => Employee(
-        id: 1,
-        name: 'John Doe',
-        email: 't5b9a@example.com',
-      ),
+          id: 1,
+          name: 'John Doe',
+          email: 't5b9a@example.com',
+          gender: Gender.male),
     );
     return Padding(
       padding: const EdgeInsets.all(16),

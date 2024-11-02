@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pm_prototype/presentation/employee/widgets/employee_table.dart';
 import 'package:pm_prototype/presentation/widgets/add_button.dart';
-import 'package:pm_prototype/routes/routes.dart';
 
 class EmployeeScreen extends StatelessWidget {
   const EmployeeScreen({super.key});

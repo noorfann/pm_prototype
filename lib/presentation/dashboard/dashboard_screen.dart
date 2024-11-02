@@ -1,12 +1,14 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pm_prototype/presentation/criteria/criteria_screen.dart';
 import 'package:pm_prototype/presentation/employee/employee_screen.dart';
 import 'package:pm_prototype/presentation/projects/projects_screen.dart';
 import 'package:sidebarx/sidebarx.dart';
 
 class DashboardScreen extends StatefulWidget {
-  const DashboardScreen({super.key});
+  final Widget child;
+  const DashboardScreen({super.key, required this.child});
 
   @override
   State<DashboardScreen> createState() => _DashboardScreenState();
@@ -44,9 +46,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               if (!isSmallScreen) PMSideBar(controller: _controller),
               Expanded(
                 child: Center(
-                  child: _ScreensMapper(
-                    controller: _controller,
-                  ),
+                  child: widget.child,
                 ),
               ),
             ],
@@ -137,16 +137,22 @@ class PMSideBar extends StatelessWidget {
           icon: Icons.home,
           label: 'Home',
           onTap: () {
-            debugPrint('Home');
+            context.go('/');
           },
         ),
-        const SidebarXItem(
+        SidebarXItem(
           icon: Icons.people,
           label: 'Employee',
+          onTap: () {
+            context.go('/employee');
+          },
         ),
-        const SidebarXItem(
+        SidebarXItem(
           icon: Icons.list,
           label: 'Criteria',
+          onTap: () {
+            context.go('/criteria');
+          },
         ),
       ],
     );

@@ -7,8 +7,9 @@ class UpdateEmployeeUC {
 
   UpdateEmployeeUC(this.repository);
 
-  Future<Either<String, bool>> call(Employee employee) async {
-    final result = await repository.updateEmployee(employee);
+  Future<Either<String, bool>> call(
+      String documentId, Employee employee) async {
+    final result = await repository.updateEmployee(documentId, employee);
     return result;
   }
 }

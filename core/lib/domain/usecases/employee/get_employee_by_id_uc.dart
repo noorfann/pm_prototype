@@ -7,8 +7,8 @@ class GetEmployeeByIdUC {
 
   GetEmployeeByIdUC(this._repository);
 
-  Future<Either<String, Employee>> call(int id) async {
-    final result = await _repository.getEmployeeById(id);
+  Future<Either<String, Employee>> call(String documentId) async {
+    final result = await _repository.getEmployeeById(documentId);
     return result.fold((l) => Left(l), (r) => Right(r));
   }
 }

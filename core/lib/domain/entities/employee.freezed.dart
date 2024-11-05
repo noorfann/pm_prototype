@@ -14,19 +14,13 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-Employee _$EmployeeFromJson(Map<String, dynamic> json) {
-  return _Employee.fromJson(json);
-}
-
 /// @nodoc
 mixin _$Employee {
-  int get id => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   Gender get gender => throw _privateConstructorUsedError;
-
-  /// Serializes this Employee to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Role get role => throw _privateConstructorUsedError;
 
   /// Create a copy of Employee
   /// with the given fields replaced by the non-null parameter values.
@@ -40,7 +34,9 @@ abstract class $EmployeeCopyWith<$Res> {
   factory $EmployeeCopyWith(Employee value, $Res Function(Employee) then) =
       _$EmployeeCopyWithImpl<$Res, Employee>;
   @useResult
-  $Res call({int id, String name, String email, Gender gender});
+  $Res call({String id, String name, String email, Gender gender, Role role});
+
+  $RoleCopyWith<$Res> get role;
 }
 
 /// @nodoc
@@ -62,12 +58,13 @@ class _$EmployeeCopyWithImpl<$Res, $Val extends Employee>
     Object? name = null,
     Object? email = null,
     Object? gender = null,
+    Object? role = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -80,7 +77,21 @@ class _$EmployeeCopyWithImpl<$Res, $Val extends Employee>
           ? _value.gender
           : gender // ignore: cast_nullable_to_non_nullable
               as Gender,
+      role: null == role
+          ? _value.role
+          : role // ignore: cast_nullable_to_non_nullable
+              as Role,
     ) as $Val);
+  }
+
+  /// Create a copy of Employee
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $RoleCopyWith<$Res> get role {
+    return $RoleCopyWith<$Res>(_value.role, (value) {
+      return _then(_value.copyWith(role: value) as $Val);
+    });
   }
 }
 
@@ -92,7 +103,10 @@ abstract class _$$EmployeeImplCopyWith<$Res>
       __$$EmployeeImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, String name, String email, Gender gender});
+  $Res call({String id, String name, String email, Gender gender, Role role});
+
+  @override
+  $RoleCopyWith<$Res> get role;
 }
 
 /// @nodoc
@@ -112,12 +126,13 @@ class __$$EmployeeImplCopyWithImpl<$Res>
     Object? name = null,
     Object? email = null,
     Object? gender = null,
+    Object? role = null,
   }) {
     return _then(_$EmployeeImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -130,34 +145,38 @@ class __$$EmployeeImplCopyWithImpl<$Res>
           ? _value.gender
           : gender // ignore: cast_nullable_to_non_nullable
               as Gender,
+      role: null == role
+          ? _value.role
+          : role // ignore: cast_nullable_to_non_nullable
+              as Role,
     ));
   }
 }
 
 /// @nodoc
-@JsonSerializable()
+
 class _$EmployeeImpl with DiagnosticableTreeMixin implements _Employee {
   const _$EmployeeImpl(
       {required this.id,
       required this.name,
       required this.email,
-      required this.gender});
-
-  factory _$EmployeeImpl.fromJson(Map<String, dynamic> json) =>
-      _$$EmployeeImplFromJson(json);
+      required this.gender,
+      required this.role});
 
   @override
-  final int id;
+  final String id;
   @override
   final String name;
   @override
   final String email;
   @override
   final Gender gender;
+  @override
+  final Role role;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Employee(id: $id, name: $name, email: $email, gender: $gender)';
+    return 'Employee(id: $id, name: $name, email: $email, gender: $gender, role: $role)';
   }
 
   @override
@@ -168,7 +187,8 @@ class _$EmployeeImpl with DiagnosticableTreeMixin implements _Employee {
       ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('name', name))
       ..add(DiagnosticsProperty('email', email))
-      ..add(DiagnosticsProperty('gender', gender));
+      ..add(DiagnosticsProperty('gender', gender))
+      ..add(DiagnosticsProperty('role', role));
   }
 
   @override
@@ -179,12 +199,12 @@ class _$EmployeeImpl with DiagnosticableTreeMixin implements _Employee {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.email, email) || other.email == email) &&
-            (identical(other.gender, gender) || other.gender == gender));
+            (identical(other.gender, gender) || other.gender == gender) &&
+            (identical(other.role, role) || other.role == role));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, email, gender);
+  int get hashCode => Object.hash(runtimeType, id, name, email, gender, role);
 
   /// Create a copy of Employee
   /// with the given fields replaced by the non-null parameter values.
@@ -193,33 +213,26 @@ class _$EmployeeImpl with DiagnosticableTreeMixin implements _Employee {
   @pragma('vm:prefer-inline')
   _$$EmployeeImplCopyWith<_$EmployeeImpl> get copyWith =>
       __$$EmployeeImplCopyWithImpl<_$EmployeeImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$EmployeeImplToJson(
-      this,
-    );
-  }
 }
 
 abstract class _Employee implements Employee {
   const factory _Employee(
-      {required final int id,
+      {required final String id,
       required final String name,
       required final String email,
-      required final Gender gender}) = _$EmployeeImpl;
-
-  factory _Employee.fromJson(Map<String, dynamic> json) =
-      _$EmployeeImpl.fromJson;
+      required final Gender gender,
+      required final Role role}) = _$EmployeeImpl;
 
   @override
-  int get id;
+  String get id;
   @override
   String get name;
   @override
   String get email;
   @override
   Gender get gender;
+  @override
+  Role get role;
 
   /// Create a copy of Employee
   /// with the given fields replaced by the non-null parameter values.

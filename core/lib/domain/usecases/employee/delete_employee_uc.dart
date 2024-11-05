@@ -6,8 +6,8 @@ class DeleteEmployeeUC {
 
   DeleteEmployeeUC(this._repository);
 
-  Future<Either<String, bool>> call(int id) async {
-    final result = await _repository.deleteEmployee(id);
+  Future<Either<String, bool>> call(String documentId) async {
+    final result = await _repository.deleteEmployee(documentId);
     return result;
   }
 }

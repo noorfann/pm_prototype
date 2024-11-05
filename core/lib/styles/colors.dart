@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 // Base Colors
-const notionPrimary = Color(0xFF2E2E48);
+const notionPrimary = Color.fromARGB(255, 6, 74, 67);
 const notionWhite = Color(0xFFFFFFFF);
 const notionBlack = Color(0xFF000000);
 

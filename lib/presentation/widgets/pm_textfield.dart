@@ -4,13 +4,23 @@ class PMTextfield extends StatelessWidget {
   final String? label;
   final String? hint;
   final TextEditingController? controller;
+  final String? Function(String?)? validator;
+  final TextInputType? keyboardType;
 
-  const PMTextfield({super.key, this.label, this.hint, this.controller});
+  const PMTextfield(
+      {super.key,
+      this.label,
+      this.hint,
+      this.controller,
+      this.validator,
+      this.keyboardType});
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
+      validator: validator,
+      keyboardType: keyboardType,
       decoration: InputDecoration(
         label: Text(label ?? ''),
         hintText: hint ?? '',

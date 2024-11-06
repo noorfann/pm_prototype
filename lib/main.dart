@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:core/core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pm_prototype/cubit/assessment/assessment_cubit.dart';
 import 'package:pm_prototype/cubit/criteria/criteria_cubit.dart';
 import 'package:pm_prototype/cubit/employee/employee_cubit.dart';
 import 'package:pm_prototype/cubit/menu/menu_cubit.dart';
@@ -43,6 +44,10 @@ class MyApp extends StatelessWidget {
         // project cubit
         BlocProvider(
           create: (_) => di.locator<ProjectCubit>(),
+        ),
+        // assessment cubit
+        BlocProvider(
+          create: (_) => di.locator<AssessmentCubit>(),
         ),
       ],
       child: MaterialApp.router(

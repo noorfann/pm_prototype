@@ -5,12 +5,14 @@ class PMDropdown<T> extends StatelessWidget {
   final List<DropdownMenuItem<T>> items;
   final Function(T?)? onChanged;
   final T? value;
+  final bool withLabel;
   const PMDropdown({
     super.key,
     required this.label,
     required this.items,
     required this.onChanged,
     required this.value,
+    this.withLabel = true,
   });
 
   @override
@@ -20,10 +22,12 @@ class PMDropdown<T> extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(label,
-              style: TextStyle(
-                  fontSize: 16,
-                  color: Theme.of(context).colorScheme.onSurface)),
+          (withLabel)
+              ? Text(label,
+                  style: TextStyle(
+                      fontSize: 16,
+                      color: Theme.of(context).colorScheme.onSurface))
+              : const SizedBox(),
           DropdownButton<T>(
             isExpanded: true,
             borderRadius: BorderRadius.circular(8),

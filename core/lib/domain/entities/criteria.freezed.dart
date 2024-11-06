@@ -19,6 +19,7 @@ mixin _$Criteria {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   CriteriaType get criteriaType => throw _privateConstructorUsedError;
+  int get score => throw _privateConstructorUsedError;
 
   /// Create a copy of Criteria
   /// with the given fields replaced by the non-null parameter values.
@@ -32,7 +33,7 @@ abstract class $CriteriaCopyWith<$Res> {
   factory $CriteriaCopyWith(Criteria value, $Res Function(Criteria) then) =
       _$CriteriaCopyWithImpl<$Res, Criteria>;
   @useResult
-  $Res call({String id, String name, CriteriaType criteriaType});
+  $Res call({String id, String name, CriteriaType criteriaType, int score});
 }
 
 /// @nodoc
@@ -53,6 +54,7 @@ class _$CriteriaCopyWithImpl<$Res, $Val extends Criteria>
     Object? id = null,
     Object? name = null,
     Object? criteriaType = null,
+    Object? score = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -67,6 +69,10 @@ class _$CriteriaCopyWithImpl<$Res, $Val extends Criteria>
           ? _value.criteriaType
           : criteriaType // ignore: cast_nullable_to_non_nullable
               as CriteriaType,
+      score: null == score
+          ? _value.score
+          : score // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -79,7 +85,7 @@ abstract class _$$CriteriaImplCopyWith<$Res>
       __$$CriteriaImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String name, CriteriaType criteriaType});
+  $Res call({String id, String name, CriteriaType criteriaType, int score});
 }
 
 /// @nodoc
@@ -98,6 +104,7 @@ class __$$CriteriaImplCopyWithImpl<$Res>
     Object? id = null,
     Object? name = null,
     Object? criteriaType = null,
+    Object? score = null,
   }) {
     return _then(_$CriteriaImpl(
       id: null == id
@@ -112,6 +119,10 @@ class __$$CriteriaImplCopyWithImpl<$Res>
           ? _value.criteriaType
           : criteriaType // ignore: cast_nullable_to_non_nullable
               as CriteriaType,
+      score: null == score
+          ? _value.score
+          : score // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -120,7 +131,10 @@ class __$$CriteriaImplCopyWithImpl<$Res>
 
 class _$CriteriaImpl implements _Criteria {
   const _$CriteriaImpl(
-      {required this.id, required this.name, required this.criteriaType});
+      {required this.id,
+      required this.name,
+      required this.criteriaType,
+      required this.score});
 
   @override
   final String id;
@@ -128,10 +142,12 @@ class _$CriteriaImpl implements _Criteria {
   final String name;
   @override
   final CriteriaType criteriaType;
+  @override
+  final int score;
 
   @override
   String toString() {
-    return 'Criteria(id: $id, name: $name, criteriaType: $criteriaType)';
+    return 'Criteria(id: $id, name: $name, criteriaType: $criteriaType, score: $score)';
   }
 
   @override
@@ -142,11 +158,12 @@ class _$CriteriaImpl implements _Criteria {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.criteriaType, criteriaType) ||
-                other.criteriaType == criteriaType));
+                other.criteriaType == criteriaType) &&
+            (identical(other.score, score) || other.score == score));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, criteriaType);
+  int get hashCode => Object.hash(runtimeType, id, name, criteriaType, score);
 
   /// Create a copy of Criteria
   /// with the given fields replaced by the non-null parameter values.
@@ -161,7 +178,8 @@ abstract class _Criteria implements Criteria {
   const factory _Criteria(
       {required final String id,
       required final String name,
-      required final CriteriaType criteriaType}) = _$CriteriaImpl;
+      required final CriteriaType criteriaType,
+      required final int score}) = _$CriteriaImpl;
 
   @override
   String get id;
@@ -169,6 +187,8 @@ abstract class _Criteria implements Criteria {
   String get name;
   @override
   CriteriaType get criteriaType;
+  @override
+  int get score;
 
   /// Create a copy of Criteria
   /// with the given fields replaced by the non-null parameter values.

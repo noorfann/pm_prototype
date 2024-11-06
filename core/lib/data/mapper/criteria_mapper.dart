@@ -11,6 +11,7 @@ class CriteriaMapper {
       criteriaType: (json['type'] == 'core_factor')
           ? CriteriaType.coreFactor
           : CriteriaType.secondaryFactor,
+      score: json['score'] as int,
     );
   }
 
@@ -19,7 +20,8 @@ class CriteriaMapper {
       'name': criteria.name,
       'type': (criteria.criteriaType.value == 'core_factor')
           ? CriteriaType.coreFactor.value
-          : CriteriaType.secondaryFactor.value
+          : CriteriaType.secondaryFactor.value,
+      'score': criteria.score
     };
   }
 }

@@ -1,8 +1,8 @@
 import 'package:appwrite/appwrite.dart';
 import 'package:core/core.dart';
-import 'package:core/data/datasources/criteria_remote_ds.dart';
-import 'package:core/data/datasources/project_remote_ds.dart';
+import 'package:core/data/datasources/assessment_detail_remote_ds.dart';
 import 'package:get_it/get_it.dart';
+import 'package:pm_prototype/cubit/assessment/assessment_cubit.dart';
 import 'package:pm_prototype/cubit/criteria/criteria_cubit.dart';
 import 'package:pm_prototype/cubit/employee/employee_cubit.dart';
 import 'package:pm_prototype/cubit/menu/menu_cubit.dart';
@@ -13,48 +13,45 @@ final locator = GetIt.instance;
 
 Future<void> init() async {
   // Appwrite
-  locator.registerLazySingleton<Client>(() {
-    Client client = Client()
-        .setEndpoint("https://cloud.appwrite.io/v1")
-        .setProject("6725d7da001cc42f909e");
-    return client;
-  });
-  locator.registerLazySingleton<Account>(() {
-    Account account = Account(locator());
-    return account;
-  });
-  locator.registerLazySingleton<AppwriteAuth>(() => AppwriteAuth(locator()));
-
-  locator.registerLazySingleton<Databases>(() {
-    Databases databases = Databases(locator());
-    return databases;
-  });
+  _appwrite();
 
   // Datasources
-  locator.registerLazySingleton<EmployeeRemoteDS>(
-      () => EmployeeRemoteDS(locator(), locator()));
-  locator.registerLazySingleton<RoleRemoteDS>(
-      () => RoleRemoteDS(locator(), locator()));
-  locator.registerLazySingleton<CriteriaRemoteDS>(
-      () => CriteriaRemoteDS(locator(), locator()));
-  locator.registerLazySingleton<ProjectRemoteDS>(
-      () => ProjectRemoteDS(locator(), locator()));
+  _dataSource();
 
   // Repositories
-  locator.registerLazySingleton<RoleRepository>(
-    () => RoleRepositoryImpl(locator()),
-  );
-  locator.registerLazySingleton<EmployeeRepository>(
-    () => EmployeeRepositoryImpl(locator()),
-  );
-  locator.registerLazySingleton<AuthRepository>(
-      () => AuthRepositoryImpl(locator()));
-  locator.registerLazySingleton<CriteriaRepository>(
-      () => CriteriaRepositoryImpl(locator()));
-  locator.registerLazySingleton<ProjectRepository>(
-      () => ProjectRepositoryImpl(locator()));
+  _repositories();
 
-  // Usecase - Role
+  // Usecases
+  _usecases();
+
+  // Cubit
+  _cubit();
+}
+
+void _cubit() {
+  // Menu Cubit
+  locator.registerFactory<MenuCubit>(() => MenuCubit());
+  // Employee Cubit
+  locator.registerFactory<EmployeeCubit>(
+      () => EmployeeCubit(repository: locator()));
+  // Role cubit
+  locator.registerFactory<RoleCubit>(() => RoleCubit(repository: locator()));
+  // Criteria cubit
+  locator.registerFactory<CriteriaCubit>(
+      () => CriteriaCubit(repository: locator()));
+  // Project cubit
+  locator
+      .registerFactory<ProjectCubit>(() => ProjectCubit(repository: locator()));
+  // Assessment cubit
+  locator.registerFactory<AssessmentCubit>(() => AssessmentCubit(
+      repository: locator(),
+      detailRepository: locator(),
+      addAssessmentUC: locator(),
+      getAssessmentUC: locator(),
+      getAssessmentDetailUC: locator()));
+}
+
+void _usecases() {
   locator.registerLazySingleton<GetRoleListUC>(() => GetRoleListUC(locator()));
   locator.registerLazySingleton<GetRoleByIdUC>(() => GetRoleByIdUC(locator()));
   locator.registerLazySingleton<DeleteRoleUC>(() => DeleteRoleUC(locator()));
@@ -90,22 +87,68 @@ Future<void> init() async {
   locator.registerLazySingleton<AddProjectUC>(() => AddProjectUC(locator()));
   locator
       .registerLazySingleton<UpdateProjectUC>(() => UpdateProjectUC(locator()));
+  // Usecase Assessment
+  locator.registerLazySingleton<GetAssessmentListUC>(
+      () => GetAssessmentListUC(locator()));
+  locator.registerLazySingleton<GetAssessmentDetailUC>(
+      () => GetAssessmentDetailUC(locator()));
+  locator.registerLazySingleton<DeleteAssessmentUC>(
+      () => DeleteAssessmentUC(locator()));
+  locator.registerLazySingleton<AddAssessmentUC>(
+      () => AddAssessmentUC(locator(), locator()));
+  locator.registerLazySingleton<UpdateAssessmentUC>(
+      () => UpdateAssessmentUC(locator()));
+}
 
-  // Menu Cubit
-  locator.registerFactory<MenuCubit>(() => MenuCubit());
+void _repositories() {
+  locator.registerLazySingleton<RoleRepository>(
+    () => RoleRepositoryImpl(locator()),
+  );
+  locator.registerLazySingleton<EmployeeRepository>(
+    () => EmployeeRepositoryImpl(locator()),
+  );
+  locator.registerLazySingleton<AuthRepository>(
+      () => AuthRepositoryImpl(locator()));
+  locator.registerLazySingleton<CriteriaRepository>(
+      () => CriteriaRepositoryImpl(locator()));
+  locator.registerLazySingleton<ProjectRepository>(
+      () => ProjectRepositoryImpl(locator()));
+  locator.registerLazySingleton<AssessmentRepository>(
+      () => AssessmentRepositoryImpl(locator()));
+  locator.registerLazySingleton<AssessmentDetailRepository>(
+      () => AssessmentDetailRepositoryImpl(locator()));
+}
 
-  // Employee Cubit
-  locator.registerFactory<EmployeeCubit>(
-      () => EmployeeCubit(repository: locator()));
+void _dataSource() {
+  locator.registerLazySingleton<EmployeeRemoteDS>(
+      () => EmployeeRemoteDS(locator(), locator()));
+  locator.registerLazySingleton<RoleRemoteDS>(
+      () => RoleRemoteDS(locator(), locator()));
+  locator.registerLazySingleton<CriteriaRemoteDS>(
+      () => CriteriaRemoteDS(locator(), locator()));
+  locator.registerLazySingleton<ProjectRemoteDS>(
+      () => ProjectRemoteDS(locator(), locator()));
+  locator.registerLazySingleton<AssessmentRemoteDS>(
+      () => AssessmentRemoteDS(locator(), locator()));
+  locator.registerLazySingleton<AssessmentDetailRemoteDS>(
+      () => AssessmentDetailRemoteDS(locator(), locator()));
+}
 
-  // Role cubit
-  locator.registerFactory<RoleCubit>(() => RoleCubit(repository: locator()));
+void _appwrite() {
+  locator.registerLazySingleton<Client>(() {
+    Client client = Client()
+        .setEndpoint("https://cloud.appwrite.io/v1")
+        .setProject("6725d7da001cc42f909e");
+    return client;
+  });
+  locator.registerLazySingleton<Account>(() {
+    Account account = Account(locator());
+    return account;
+  });
+  locator.registerLazySingleton<AppwriteAuth>(() => AppwriteAuth(locator()));
 
-  // Criteria cubit
-  locator.registerFactory<CriteriaCubit>(
-      () => CriteriaCubit(repository: locator()));
-
-  // Project cubit
-  locator
-      .registerFactory<ProjectCubit>(() => ProjectCubit(repository: locator()));
+  locator.registerLazySingleton<Databases>(() {
+    Databases databases = Databases(locator());
+    return databases;
+  });
 }

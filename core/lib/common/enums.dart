@@ -1,6 +1,6 @@
 enum Gender {
-  male(0, name: 'Male'),
-  female(1, name: 'Female');
+  male(0, name: 'Laki-laki'),
+  female(1, name: 'Perempuan');
 
   final int id;
   final String name;

@@ -1,5 +1,5 @@
 import 'package:core/domain/entities/criteria.dart';
-import 'package:core/domain/repositories/Criteria_repository.dart';
+import 'package:core/domain/repositories/criteria_repository.dart';
 import 'package:dartz/dartz.dart';
 
 class GetCriteriaListUC {

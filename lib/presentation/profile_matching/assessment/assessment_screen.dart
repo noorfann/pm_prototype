@@ -1,13 +1,14 @@
 import 'package:core/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:pm_prototype/presentation/master_data/criteria/components/criteria_table.dart';
 import 'package:pm_prototype/presentation/widgets/add_button.dart';
 import 'package:pm_prototype/presentation/widgets/header_widget.dart';
 import 'package:pm_prototype/routes/routes.dart';
 
-class CriteriaScreen extends StatelessWidget {
-  const CriteriaScreen({super.key});
+import 'components/assessment_table.dart';
+
+class AssessmentScreen extends StatelessWidget {
+  const AssessmentScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class CriteriaScreen extends StatelessWidget {
         SizedBox(
           width: double.infinity,
           child: HeaderWidget(
-            title: 'Kriteria',
+            title: 'Penilaian',
             withCloseButton: false,
           ),
         ),
@@ -29,13 +30,13 @@ class CriteriaScreen extends StatelessWidget {
                 Align(
                   alignment: Alignment.centerRight,
                   child: AddButton(
-                    title: 'Tambah Kriteria',
+                    title: 'Tambah Penilaian',
                     onPressed: () {
-                      context.go(criteriaFormScreen);
+                      context.go(assessmentFormScreen);
                     },
                   ),
                 ),
-                Expanded(child: CriteriaTable())
+                Expanded(child: AssesmentTable())
               ],
             ),
           ),

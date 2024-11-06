@@ -7,8 +7,8 @@ class UpdateProjectUC {
 
   UpdateProjectUC(this.repository);
 
-  Future<Either<String, bool>> call(String documentId, Project Project) async {
-    final result = await repository.updateProject(documentId, Project);
+  Future<Either<String, bool>> call(String documentId, Project project) async {
+    final result = await repository.updateProject(documentId, project);
     return result;
   }
 }

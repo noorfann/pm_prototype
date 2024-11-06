@@ -23,17 +23,9 @@ class CriteriaFormScreen extends StatefulWidget {
 }
 
 class _CriteriaFormScreenState extends State<CriteriaFormScreen> {
-  // final List<Weight> weights = [
-  //   Weight('Sangat kurang', 0),
-  //   Weight('Kurang', 1),
-  //   Weight('Cukup', 2),
-  //   Weight('Baik', 3),
-  //   Weight('Sangat Baik', 4),
-  // ];
-
   final TextEditingController nameController = TextEditingController();
-  // Weight? selectedWeight;
   CriteriaType? criteriaType;
+  int? score;
 
   final _formKey = GlobalKey<FormState>();
 
@@ -133,6 +125,7 @@ class _CriteriaFormScreenState extends State<CriteriaFormScreen> {
                                 return null;
                               },
                             ),
+                            verticalSpacing(),
                             PMDropdown(
                                 label: 'Tipe Kriteria',
                                 items: CriteriaType.values
@@ -145,6 +138,19 @@ class _CriteriaFormScreenState extends State<CriteriaFormScreen> {
                                       criteriaType = value as CriteriaType;
                                     }),
                                 value: criteriaType),
+                            verticalSpacing(),
+                            PMDropdown(
+                                label: 'Nilai',
+                                items: <int>[1, 2, 3, 4, 5]
+                                    .map((e) => DropdownMenuItem(
+                                          value: e,
+                                          child: Text(e.toString()),
+                                        ))
+                                    .toList(),
+                                onChanged: (value) => setState(() {
+                                      score = value;
+                                    }),
+                                value: score),
                             verticalSpacing(24),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
@@ -157,10 +163,12 @@ class _CriteriaFormScreenState extends State<CriteriaFormScreen> {
                                       if (!_formKey.currentState!.validate()) {
                                         return;
                                       }
-                                      if (criteriaType == null) {
+                                      if (criteriaType == null ||
+                                          score == null) {
                                         PopupHelper.showGeneralPopup(context,
                                             title: 'Error',
-                                            desc: 'Bobot wajib diisi',
+                                            desc:
+                                                'Harap isi semua data untuk lanjut',
                                             type: PopupType.failed);
                                         return;
                                       }
@@ -168,6 +176,7 @@ class _CriteriaFormScreenState extends State<CriteriaFormScreen> {
                                         id: '',
                                         name: nameController.text,
                                         criteriaType: criteriaType!,
+                                        score: score!,
                                       );
                                       logger.logInfo(
                                           "criteria type ${criteria.criteriaType.name})}");

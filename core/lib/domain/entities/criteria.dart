@@ -8,5 +8,6 @@ class Criteria with _$Criteria {
   const factory Criteria(
       {required String id,
       required String name,
-      required CriteriaType criteriaType}) = _Criteria;
+      required CriteriaType criteriaType,
+      required int score}) = _Criteria;
 }

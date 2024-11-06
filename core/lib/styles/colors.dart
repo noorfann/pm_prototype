@@ -84,13 +84,13 @@ const onPrimaryColor = notionWhite;
 const lightScaffoldBackgroundColor = notionLightBackground;
 const lightAccentCanvasColor = notionLightSurface;
 final lightActionColor = notionPrimary.withOpacity(0.6);
-final lightDivider = const Divider(color: notionLightBorder, height: 1);
+const lightDivider = Divider(color: notionLightBorder, height: 1);
 
 // Dark theme specific
 const darkScaffoldBackgroundColor = notionDarkBackground;
 const darkAccentCanvasColor = notionDarkSurface;
 final darkActionColor = notionPrimary.withOpacity(0.6);
-final darkDivider = const Divider(color: notionDarkBorder, height: 1);
+const darkDivider = Divider(color: notionDarkBorder, height: 1);
 
 const white = Colors.white;
 final actionColor = const Color(0xFF9E9EFF).withOpacity(0.6);

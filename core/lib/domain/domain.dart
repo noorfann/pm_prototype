@@ -23,11 +23,19 @@ export 'usecases/project/get_project_by_id_uc.dart';
 export 'usecases/project/get_project_list_uc.dart';
 export 'usecases/project/update_project_uc.dart';
 
+export 'usecases/assessment/add_assessment_uc.dart';
+export 'usecases/assessment/delete_assessment_uc.dart';
+export 'usecases/assessment/get_assessment_detail_uc.dart';
+export 'usecases/assessment/get_assessment_list_uc.dart';
+export 'usecases/assessment/update_assessment_uc.dart';
+
 // Entities
 export 'entities/employee.dart';
 export 'entities/role.dart';
 export 'entities/criteria.dart';
 export 'entities/project.dart';
+export 'entities/assessment.dart';
+export 'entities/assessment_detail.dart';
 
 // Repositories
 export 'repositories/employee_repository.dart';
@@ -35,3 +43,5 @@ export 'repositories/role_repository.dart';
 export 'repositories/auth_repository.dart';
 export 'repositories/criteria_repository.dart';
 export 'repositories/project_repository.dart';
+export 'repositories/assessment_repository.dart';
+export 'repositories/assessment_detail_repository.dart';

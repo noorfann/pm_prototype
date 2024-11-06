@@ -14,7 +14,7 @@ class CustomSideMenu extends StatefulWidget {
 
 class _CustomSideMenuState extends State<CustomSideMenu> {
   bool _isExpanded = false;
-  Map<String, bool> _hoveredItems = {};
+  Map<String, bool> hoveredItems = {};
 
   @override
   Widget build(BuildContext context) {
@@ -29,10 +29,8 @@ class _CustomSideMenuState extends State<CustomSideMenu> {
             color: Theme.of(context).colorScheme.surface,
             child: Row(
               children: [
-                CircleAvatar(
-                  radius: 25,
-                  backgroundImage:
-                      AssetImage('assets/images/logo.png'), // Add your logo
+                FlutterLogo(
+                  size: 50,
                 ),
                 SizedBox(width: 12),
                 Expanded(
@@ -40,7 +38,7 @@ class _CustomSideMenuState extends State<CustomSideMenu> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Task Management',
+                        'Pembagian tugas',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 18,
@@ -98,7 +96,7 @@ class _CustomSideMenuState extends State<CustomSideMenu> {
                         _buildMenuItem(
                           context,
                           icon: Icons.people,
-                          title: 'Employee',
+                          title: 'Karyawan',
                           route: employeeScreen,
                           selected: state.selectedRoute == employeeScreen,
                           indent: true,
@@ -106,19 +104,19 @@ class _CustomSideMenuState extends State<CustomSideMenu> {
                         _buildMenuItem(
                           context,
                           icon: Icons.list_alt,
-                          title: 'Criteria',
+                          title: 'Kriteria',
                           route: criteriaScreen,
                           selected: state.selectedRoute == criteriaScreen,
                           indent: true,
                         ),
-                        _buildMenuItem(
-                          context,
-                          icon: Icons.work,
-                          title: 'Projects',
-                          route: projectsScreen,
-                          selected: state.selectedRoute == projectsScreen,
-                          indent: true,
-                        ),
+                        // _buildMenuItem(
+                        //   context,
+                        //   icon: Icons.work,
+                        //   title: 'Projects',
+                        //   route: projectsScreen,
+                        //   selected: state.selectedRoute == projectsScreen,
+                        //   indent: true,
+                        // ),
                       ],
                     ),
                     ExpansionTile(
@@ -137,15 +135,15 @@ class _CustomSideMenuState extends State<CustomSideMenu> {
                         _buildMenuItem(
                           context,
                           icon: Icons.assessment,
-                          title: 'Assesment',
-                          route: roleScreen,
-                          selected: state.selectedRoute == roleScreen,
+                          title: 'Penilaian',
+                          route: assessmentScreen,
+                          selected: state.selectedRoute == assessmentScreen,
                           indent: true,
                         ),
                         _buildMenuItem(
                           context,
                           icon: Icons.task,
-                          title: 'Tasks',
+                          title: 'Pembagian tugas',
                           route: employeeScreen,
                           selected: state.selectedRoute == employeeScreen,
                           indent: true,
@@ -184,12 +182,12 @@ class _CustomSideMenuState extends State<CustomSideMenu> {
     VoidCallback? onTap,
   }) {
     return MouseRegion(
-      onEnter: (_) => setState(() => _hoveredItems[title] = true),
-      onExit: (_) => setState(() => _hoveredItems[title] = false),
+      onEnter: (_) => setState(() => hoveredItems[title] = true),
+      onExit: (_) => setState(() => hoveredItems[title] = false),
       child: Container(
         color: selected
             ? Theme.of(context).colorScheme.primary
-            : _hoveredItems[title] == true
+            : hoveredItems[title] == true
                 ? Theme.of(context).colorScheme.primary
                 : Colors.transparent,
         child: ListTile(

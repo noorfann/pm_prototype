@@ -10,6 +10,8 @@ import 'package:pm_prototype/presentation/master_data/projects/project_screen.da
 import 'package:pm_prototype/presentation/master_data/projects/projects_dashboard_screen.dart';
 import 'package:pm_prototype/presentation/master_data/role/role_form_screen.dart';
 import 'package:pm_prototype/presentation/master_data/role/role_screen.dart';
+import 'package:pm_prototype/presentation/profile_matching/assessment/assessment_form_screen.dart';
+import 'package:pm_prototype/presentation/profile_matching/assessment/assessment_screen.dart';
 
 // GoRouter configuration
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -29,6 +31,9 @@ const criteriaFormScreen = '/criteria/form';
 
 const projectsScreen = '/projects';
 const projectsFormScreen = '/projects/form';
+
+const assessmentScreen = '/assessment';
+const assessmentFormScreen = '/assessment/form';
 
 final router = GoRouter(
   navigatorKey: _rootNavigatorKey,
@@ -134,6 +139,29 @@ final router = GoRouter(
                       );
                     } else {
                       return const ProjectFormScreen();
+                    }
+                  },
+                ),
+              ]),
+          GoRoute(
+              path: assessmentScreen,
+              parentNavigatorKey: _shellNavigatorKey,
+              builder: (context, state) => const AssessmentScreen(),
+              routes: [
+                GoRoute(
+                  path: 'form',
+                  parentNavigatorKey: _shellNavigatorKey,
+                  builder: (context, state) {
+                    if (state.extra != null) {
+                      final params = state.extra as List;
+                      final isEdit = params[0];
+                      final assesment = params[1];
+                      return AssessmentFormScreen(
+                        isEdit: isEdit,
+                        employee: assesment,
+                      );
+                    } else {
+                      return const AssessmentFormScreen();
                     }
                   },
                 ),

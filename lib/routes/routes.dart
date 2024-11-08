@@ -12,6 +12,8 @@ import 'package:pm_prototype/presentation/master_data/role/role_form_screen.dart
 import 'package:pm_prototype/presentation/master_data/role/role_screen.dart';
 import 'package:pm_prototype/presentation/profile_matching/assessment/assessment_form_screen.dart';
 import 'package:pm_prototype/presentation/profile_matching/assessment/assessment_screen.dart';
+import 'package:pm_prototype/presentation/profile_matching/task/profile_matching_result_screen.dart';
+import 'package:pm_prototype/presentation/profile_matching/task/task_form_screen.dart';
 
 // GoRouter configuration
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -34,6 +36,9 @@ const projectsFormScreen = '/projects/form';
 
 const assessmentScreen = '/assessment';
 const assessmentFormScreen = '/assessment/form';
+
+const taskScreen = '/task';
+const profileMatchingScreen = '/task/profile_matching';
 
 final router = GoRouter(
   navigatorKey: _rootNavigatorKey,
@@ -155,14 +160,29 @@ final router = GoRouter(
                     if (state.extra != null) {
                       final params = state.extra as List;
                       final isEdit = params[0];
-                      final assesment = params[1];
+                      final employee = params[1];
+                      final assessmentDetail = params[2];
                       return AssessmentFormScreen(
                         isEdit: isEdit,
-                        employee: assesment,
+                        employee: employee,
+                        assessment: assessmentDetail,
                       );
                     } else {
                       return const AssessmentFormScreen();
                     }
+                  },
+                ),
+              ]),
+          GoRoute(
+              path: taskScreen,
+              parentNavigatorKey: _shellNavigatorKey,
+              builder: (context, state) => const TaskFormScreen(),
+              routes: [
+                GoRoute(
+                  path: 'profile_matching',
+                  parentNavigatorKey: _shellNavigatorKey,
+                  builder: (context, state) {
+                    return ProfileMatchingResultPage();
                   },
                 ),
               ]),

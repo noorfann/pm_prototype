@@ -1,6 +1,6 @@
 import 'package:core/core.dart';
 
-enum CriteriaStatus { initial, loading, success, failure }
+enum CriteriaStatus { loading, success, failure }
 
 enum CriteriaOperation { fetch, add, delete, update }
 
@@ -13,7 +13,7 @@ class CriteriaState {
   final CriteriaOperation operation;
 
   CriteriaState({
-    this.status = CriteriaStatus.initial,
+    this.status = CriteriaStatus.loading,
     this.criterias = const [],
     this.error = CriteriaError.none,
     this.operation = CriteriaOperation.add,

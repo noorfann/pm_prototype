@@ -9,63 +9,105 @@ class AssesmentDetailDialog {
     showDialog(
       context: context,
       builder: (context) => Dialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
           child: Column(mainAxisSize: MainAxisSize.min, children: [
-        Container(
-          padding: const EdgeInsets.all(20),
-          child: Stack(
-            children: [
-              Column(
-                children: [
-                  Text(
-                    'Detail Penilaian',
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
-                  const Divider(),
-                  Text(
-                    assessment.employee.name,
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                  const Divider(),
-                  Text(
-                    'Nilai',
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                  ...assessmentDetail.map(
-                    (e) {
-                      return Row(
+            Stack(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(20),
+                  width: 500,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Detail Penilaian',
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                      const Divider(
+                        height: 20,
+                      ),
+                      Row(
                         children: [
                           Text(
-                            e.criteria.name,
+                            assessment.employee.name,
                             style: Theme.of(context).textTheme.titleMedium,
                           ),
-                          const Spacer(),
                           Text(
-                            '${e.score}',
+                            " (${assessment.employee.role?.name ?? '-'})",
                             style: Theme.of(context).textTheme.titleMedium,
-                          )
+                          ),
                         ],
-                      );
-                    },
-                  )
-                ],
-              ),
-              Positioned(
-                top: 0,
-                right: 0,
-                child: IconButton(
-                  onPressed: () {
-                    context.pop();
-                  },
-                  icon: Icon(
-                    Icons.close,
-                    color: Theme.of(context).colorScheme.onSurface,
+                      ),
+                      const Divider(
+                        height: 20,
+                      ),
+                      Text(
+                        'Nilai',
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                      verticalSpacing(),
+                      Table(
+                          columnWidths: const {
+                            0: FlexColumnWidth(),
+                            1: FlexColumnWidth(),
+                          },
+                          border: TableBorder.all(
+                              color: Theme.of(context).colorScheme.outline),
+                          children: [
+                            TableRow(children: [
+                              Text(
+                                'Kriteria',
+                                style: Theme.of(context).textTheme.titleMedium,
+                                textAlign: TextAlign.center,
+                              ),
+                              Text(
+                                'Nilai',
+                                style: Theme.of(context).textTheme.titleMedium,
+                                textAlign: TextAlign.center,
+                              ),
+                            ]),
+                            ...assessmentDetail.map(
+                              (e) {
+                                return TableRow(
+                                  children: [
+                                    Text(
+                                      e.criteria.name,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall,
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    Text(
+                                      '${e.score}',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall,
+                                      textAlign: TextAlign.center,
+                                    )
+                                  ],
+                                );
+                              },
+                            )
+                          ]),
+                    ],
                   ),
                 ),
-              ),
-            ],
-          ),
-        )
-      ])),
+                Positioned(
+                  top: 10,
+                  right: 10,
+                  child: IconButton(
+                    onPressed: () {
+                      context.pop();
+                    },
+                    icon: Icon(
+                      Icons.close,
+                      color: Theme.of(context).colorScheme.onSurface,
+                    ),
+                  ),
+                ),
+              ],
+            )
+          ])),
     );
   }
 }

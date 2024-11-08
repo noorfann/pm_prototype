@@ -126,7 +126,7 @@ class CriteriaCubit extends Cubit<CriteriaState> {
 
   void _resetState() {
     emit(state.copyWith(
-      status: CriteriaStatus.initial,
+      status: CriteriaStatus.loading,
       error: CriteriaError.none,
       operation: CriteriaOperation.fetch,
     ));

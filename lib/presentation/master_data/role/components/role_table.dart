@@ -52,7 +52,7 @@ class RoleTable extends StatelessWidget {
                 horizontalMargin: 0,
                 minWidth: 600,
                 border: TableBorder.all(
-                  color: Theme.of(context).colorScheme.onSurface,
+                  color: Theme.of(context).colorScheme.outline,
                 ),
                 headingTextStyle: TextStyle(
                     fontWeight: FontWeight.bold,

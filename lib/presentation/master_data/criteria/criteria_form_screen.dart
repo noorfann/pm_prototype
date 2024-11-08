@@ -138,19 +138,19 @@ class _CriteriaFormScreenState extends State<CriteriaFormScreen> {
                                       criteriaType = value as CriteriaType;
                                     }),
                                 value: criteriaType),
-                            verticalSpacing(),
-                            PMDropdown(
-                                label: 'Nilai',
-                                items: <int>[1, 2, 3, 4, 5]
-                                    .map((e) => DropdownMenuItem(
-                                          value: e,
-                                          child: Text(e.toString()),
-                                        ))
-                                    .toList(),
-                                onChanged: (value) => setState(() {
-                                      score = value;
-                                    }),
-                                value: score),
+                            // verticalSpacing(),
+                            // PMDropdown(
+                            //     label: 'Nilai',
+                            //     items: <int>[1, 2, 3, 4, 5]
+                            //         .map((e) => DropdownMenuItem(
+                            //               value: e,
+                            //               child: Text(e.toString()),
+                            //             ))
+                            //         .toList(),
+                            //     onChanged: (value) => setState(() {
+                            //           score = value;
+                            //         }),
+                            //     value: score),
                             verticalSpacing(24),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,

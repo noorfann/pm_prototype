@@ -118,7 +118,7 @@ class EmployeeCubit extends Cubit<EmployeeState> {
 
   void _resetState() {
     emit(state.copyWith(
-      status: EmployeeStatus.initial,
+      status: EmployeeStatus.loading,
       error: EmployeeError.none,
       operation: EmployeeOperation.fetch,
     ));

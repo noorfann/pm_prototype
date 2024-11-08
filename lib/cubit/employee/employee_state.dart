@@ -1,6 +1,6 @@
 import 'package:core/core.dart';
 
-enum EmployeeStatus { initial, loading, success, failure }
+enum EmployeeStatus { loading, success, failure }
 
 enum EmployeeOperation { fetch, add, delete, update }
 
@@ -13,7 +13,7 @@ class EmployeeState {
   final EmployeeOperation operation;
 
   EmployeeState({
-    this.status = EmployeeStatus.initial,
+    this.status = EmployeeStatus.loading,
     this.employees = const [],
     this.error = EmployeeError.none,
     this.operation = EmployeeOperation.add,

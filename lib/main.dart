@@ -5,6 +5,7 @@ import 'package:pm_prototype/cubit/assessment/assessment_cubit.dart';
 import 'package:pm_prototype/cubit/criteria/criteria_cubit.dart';
 import 'package:pm_prototype/cubit/employee/employee_cubit.dart';
 import 'package:pm_prototype/cubit/menu/menu_cubit.dart';
+import 'package:pm_prototype/cubit/profile_matching/profile_matching_cubit.dart';
 import 'package:pm_prototype/cubit/project/project_cubit.dart';
 import 'package:pm_prototype/cubit/role/role_cubit.dart';
 import 'package:pm_prototype/injection.dart';
@@ -48,6 +49,10 @@ class MyApp extends StatelessWidget {
         // assessment cubit
         BlocProvider(
           create: (_) => di.locator<AssessmentCubit>(),
+        ),
+        // profile matching cubit
+        BlocProvider(
+          create: (_) => di.locator<ProfileMatchingCubit>(),
         ),
       ],
       child: MaterialApp.router(

@@ -118,7 +118,7 @@ class ProjectCubit extends Cubit<ProjectState> {
 
   void _resetState() {
     emit(state.copyWith(
-      status: ProjectStatus.initial,
+      status: ProjectStatus.loading,
       error: ProjectError.none,
       operation: ProjectOperation.fetch,
     ));

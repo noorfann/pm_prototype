@@ -62,7 +62,7 @@ class AssesmentTable extends StatelessWidget {
                 horizontalMargin: 0,
                 minWidth: 600,
                 border: TableBorder.all(
-                  color: Theme.of(context).colorScheme.onSurface,
+                  color: Theme.of(context).colorScheme.outline,
                 ),
                 headingTextStyle: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -116,8 +116,8 @@ class AssesmentTable extends StatelessWidget {
                     .map((data) => DataRow(cells: [
                           DataCell(Center(child: Text(data.id.toString()))),
                           DataCell(Center(child: Text(data.employee.name))),
-                          DataCell(
-                              Center(child: Text(data.employee.role.name))),
+                          DataCell(Center(
+                              child: Text(data.employee.role?.name ?? ''))),
                           DataCell(Center(child: Text(data.assessor))),
                           DataCell(
                             Row(
@@ -125,7 +125,7 @@ class AssesmentTable extends StatelessWidget {
                               children: [
                                 IconButton(
                                   onPressed: () async {
-                                    // extra params [isEdit, Assessment]
+                                    selectedAssesment = data;
                                     await context
                                         .read<AssessmentCubit>()
                                         .getAssessmentsDetail(data.id);
@@ -136,8 +136,11 @@ class AssesmentTable extends StatelessWidget {
                                   onPressed: () {
                                     // extra params [isEdit, Assessment]
                                     selectedAssesment = data;
-                                    context.go(assessmentFormScreen,
-                                        extra: [true, Assessment]);
+                                    context.go(assessmentFormScreen, extra: [
+                                      true,
+                                      data.employee,
+                                      selectedAssesment
+                                    ]);
                                   },
                                   icon: const Icon(Icons.edit),
                                 ),

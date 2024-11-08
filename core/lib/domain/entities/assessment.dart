@@ -5,9 +5,9 @@ part 'assessment.freezed.dart';
 
 @freezed
 class Assessment with _$Assessment {
-  const factory Assessment({
-    required String id,
-    required String assessor,
-    required Employee employee,
-  }) = _Assessment;
+  const factory Assessment(
+      {required String id,
+      required String assessor,
+      required Employee employee,
+      required List<AssessmentDetail> details}) = _Assessment;
 }

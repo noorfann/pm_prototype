@@ -17,23 +17,12 @@ import 'package:pm_prototype/presentation/widgets/submit_button.dart';
 import 'package:core/core.dart';
 import 'package:collection/collection.dart';
 
-class Weight {
-  final String name;
-  final double value;
-  Weight(this.name, this.value);
-}
-
-class AssessmentDetailForm {
-  Criteria criteria;
-  Weight? weight;
-
-  AssessmentDetailForm(this.criteria, this.weight);
-}
-
 class AssessmentFormScreen extends StatefulWidget {
   final bool isEdit;
   final Employee? employee;
-  const AssessmentFormScreen({super.key, this.isEdit = false, this.employee});
+  final Assessment? assessment;
+  const AssessmentFormScreen(
+      {super.key, this.isEdit = false, this.employee, this.assessment});
 
   @override
   State<AssessmentFormScreen> createState() => _AssessmentFormScreenState();
@@ -47,7 +36,7 @@ class _AssessmentFormScreenState extends State<AssessmentFormScreen> {
     Weight('Baik', 3),
     Weight('Sangat Baik', 4),
   ];
-  List<AssessmentDetailForm> assessmentDetailForm = [];
+  List<CriteriaDetailForm> criteriaDetailForm = [];
   TextEditingController assessorController = TextEditingController();
   Employee? selectedEmployee;
   final _formKey = GlobalKey<FormState>();
@@ -59,29 +48,18 @@ class _AssessmentFormScreenState extends State<AssessmentFormScreen> {
   }
 
   void _initData() async {
-    if (context.read<EmployeeCubit>().state.employees.isEmpty) {
-      await context.read<EmployeeCubit>().getEmployees();
-    }
-    if (context.read<CriteriaCubit>().state.criterias.isEmpty) {
-      await context.read<CriteriaCubit>().getCriterias();
-      final criterias = context.read<CriteriaCubit>().state.criterias;
-      for (var i = 0; i < criterias.length; i++) {
-        assessmentDetailForm.add(
-          AssessmentDetailForm(
-            criterias[i],
-            null,
-          ),
-        );
+    if (widget.isEdit && widget.assessment != null) {
+      if (mounted) {
+        selectedEmployee = widget.assessment!.employee;
+        assessorController.text = widget.assessment!.assessor;
       }
     }
 
-    if (widget.isEdit && widget.employee != null) {
-      final employees = context.read<EmployeeCubit>().state.employees;
-      assessorController.text = widget.employee!.name;
-      selectedEmployee = employees.firstWhere(
-        (element) => element == widget.employee,
-      );
+    if (context.read<EmployeeCubit>().state.employees.isEmpty) {
+      await context.read<EmployeeCubit>().getEmployees();
     }
+
+    await context.read<CriteriaCubit>().getCriterias();
   }
 
   @override
@@ -126,6 +104,13 @@ class _AssessmentFormScreenState extends State<AssessmentFormScreen> {
             }
           },
         ),
+        BlocListener<CriteriaCubit, CriteriaState>(
+          listener: (context, state) {
+            if (state.status == CriteriaStatus.success) {
+              _setCriteriaDetailForm(state.criterias);
+            }
+          },
+        )
       ],
       child: BlocBuilder<AssessmentCubit, AssessmentState>(
         builder: (context, state) {
@@ -172,6 +157,7 @@ class _AssessmentFormScreenState extends State<AssessmentFormScreen> {
                                     } else if (state.status ==
                                         EmployeeStatus.success) {
                                       final employees = state.employees;
+                                      // _setSelectedEmployee(employees);
                                       return PMDropdown(
                                         label: 'Karyawan',
                                         items: employees.map((Employee value) {
@@ -197,13 +183,18 @@ class _AssessmentFormScreenState extends State<AssessmentFormScreen> {
                                 ),
                                 BlocBuilder<CriteriaCubit, CriteriaState>(
                                   builder: (context, state) {
+                                    logger.logInfo(
+                                        "criteria state status ${state.status}");
+
                                     if (state.status ==
                                         CriteriaStatus.loading) {
                                       return Center(
                                         child: CircularProgressIndicator(),
                                       );
                                     } else if (state.status ==
-                                        CriteriaStatus.success) {
+                                            CriteriaStatus.success &&
+                                        state.operation ==
+                                            CriteriaOperation.fetch) {
                                       final criterias = state.criterias;
                                       logger.logInfo(
                                           "criterias length ${criterias.length}");
@@ -236,15 +227,15 @@ class _AssessmentFormScreenState extends State<AssessmentFormScreen> {
                                                       return DropdownMenuItem<
                                                           Weight>(
                                                         value: value,
-                                                        child: Text(value.name),
+                                                        child: Text(
+                                                            "${value.name} - ${value.value}"),
                                                       );
                                                     }).toList(),
-                                                    value:
-                                                        assessmentDetailForm[i]
-                                                            .weight,
+                                                    value: criteriaDetailForm[i]
+                                                        .weight,
                                                     onChanged: (value) {
                                                       setState(() {
-                                                        assessmentDetailForm[i]
+                                                        criteriaDetailForm[i]
                                                                 .weight =
                                                             weights.firstWhere(
                                                                 (element) =>
@@ -304,11 +295,12 @@ class _AssessmentFormScreenState extends State<AssessmentFormScreen> {
                                               id: '',
                                               assessor: assessorController.text,
                                               employee: selectedEmployee!,
+                                              details: [],
                                             );
                                             List<AssessmentDetail>
                                                 assessmentDetail = [];
                                             for (var form
-                                                in assessmentDetailForm) {
+                                                in criteriaDetailForm) {
                                               assessmentDetail
                                                   .add(AssessmentDetail(
                                                 id: '',
@@ -351,8 +343,28 @@ class _AssessmentFormScreenState extends State<AssessmentFormScreen> {
     );
   }
 
+  void _setSelectedEmployee(List<Employee> employees) {
+    if (widget.isEdit && widget.employee != null) {
+      selectedEmployee = employees.firstWhere(
+        (element) => element == widget.employee,
+      );
+      logger.logInfo("selected employee ${selectedEmployee.toString()}");
+    }
+  }
+
+  void _setCriteriaDetailForm(List<Criteria> criterias) {
+    for (var i = 0; i < criterias.length; i++) {
+      criteriaDetailForm.add(
+        CriteriaDetailForm(
+          criterias[i],
+          null,
+        ),
+      );
+    }
+  }
+
   bool _isValidDetailForm() {
-    final checkEmptyWeight = assessmentDetailForm.firstWhereOrNull(
+    final checkEmptyWeight = criteriaDetailForm.firstWhereOrNull(
       (element) => element.weight == null,
     );
     if (checkEmptyWeight != null) {

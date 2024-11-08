@@ -1,8 +1,6 @@
 import 'package:appwrite/appwrite.dart' as appwrite;
-import 'package:core/data/mapper/assessment_mapper.dart';
-import 'package:core/domain/entities/assessment.dart';
+import 'package:core/core.dart';
 import 'package:core/utils/app_logger.dart';
-import 'package:core/utils/constants.dart';
 import 'package:dartz/dartz.dart';
 
 class AssessmentRemoteDS {
@@ -20,19 +18,75 @@ class AssessmentRemoteDS {
     }
   }
 
+  // Future<Either<String, List<Assessment>>> getAssessments() async {
+  //   try {
+  //     final response = await _databases.listDocuments(
+  //         databaseId: databaseId, collectionId: assessmentCollectionId);
+  //     final result = response.documents
+  //         .map((e) => AssessmentMapper.fromJson(e.data))
+  //         .toList();
+
+  //     logger.logInfo(result.toString());
+  //     return Right(result);
+  //   } catch (e) {
+  //     logger.logError('failed to get Assessments ${e.toString()}');
+  //     return const Left('Failed to get Assessments');
+  //   }
+  // }
+
   Future<Either<String, List<Assessment>>> getAssessments() async {
     try {
-      final response = await _databases.listDocuments(
-          databaseId: databaseId, collectionId: assessmentCollectionId);
-      final result = response.documents
-          .map((e) => AssessmentMapper.fromJson(e.data))
-          .toList();
+      logger.logInfo('Fetching assessments from Appwrite...');
 
-      logger.logInfo(result.toString());
-      return Right(result);
+      // 1. Fetch assessments
+      final assessmentResponse = await _databases.listDocuments(
+        databaseId: databaseId,
+        collectionId: assessmentCollectionId,
+      );
+
+      logger.logInfo(
+          'Successfully fetched ${assessmentResponse.documents.length} assessments');
+
+      // 2. Fetch all assessment details
+      List<Assessment> assessments = [];
+
+      for (var doc in assessmentResponse.documents) {
+        logger.logInfo('Fetching details for assessment: ${doc.$id}');
+
+        // Fetch details for this assessment
+        final detailsResponse = await _databases.listDocuments(
+          databaseId: databaseId,
+          collectionId: assessmentDetailCollectionId,
+          queries: [
+            appwrite.Query.equal('assessment', doc.$id),
+          ],
+        );
+
+        logger.logInfo(
+            'Found ${detailsResponse.documents.length} details for assessment ${doc.$id}');
+
+        // Map the details
+        final details = detailsResponse.documents.map((detailDoc) {
+          return AssessmentDetailMapper.fromJson(detailDoc.data);
+        }).toList();
+
+        // Create assessment with its details
+        final assessment = Assessment(
+          id: doc.$id,
+          assessor: doc.data['assessor'],
+          employee: EmployeeMapper.fromJson(doc.data['employee']),
+          details: details,
+        );
+
+        assessments.add(assessment);
+      }
+
+      logger.logInfo(
+          'Successfully mapped ${assessments.length} assessments with their details');
+      return Right(assessments);
     } catch (e) {
-      logger.logError('failed to get Assessments ${e.toString()}');
-      return const Left('Failed to get Assessments');
+      logger.logError('Failed to get Assessments: ${e.toString()}');
+      return Left('Failed to get Assessments: ${e.toString()}');
     }
   }
 
@@ -48,7 +102,7 @@ class AssessmentRemoteDS {
       );
       logger.logInfo(
           "added Assessment success${AssessmentMapper.toJson(assessment)}");
-      final assessmentResp = AssessmentMapper.fromJson(result.data);
+      final assessmentResp = AssessmentMapper.fromJson(result.data, []);
       return Right(assessmentResp);
     } catch (e) {
       logger.logError('failed to add Assessments ${e.toString()}');
@@ -96,7 +150,7 @@ class AssessmentRemoteDS {
         collectionId: assessmentCollectionId,
         documentId: documentId,
       );
-      return Right(AssessmentMapper.fromJson(result.data));
+      return Right(AssessmentMapper.fromJson(result.data, []));
     } catch (e) {
       return const Left('Failed to update assessment');
     }

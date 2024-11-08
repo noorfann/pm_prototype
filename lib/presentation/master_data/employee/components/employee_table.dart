@@ -52,7 +52,7 @@ class EmployeeTable extends StatelessWidget {
                 horizontalMargin: 0,
                 minWidth: 600,
                 border: TableBorder.all(
-                  color: Theme.of(context).colorScheme.onSurface,
+                  color: Theme.of(context).colorScheme.outline,
                 ),
                 headingTextStyle: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -116,7 +116,8 @@ class EmployeeTable extends StatelessWidget {
                           DataCell(Center(child: Text(employee.name))),
                           DataCell(Center(child: Text(employee.email))),
                           DataCell(Center(child: Text(employee.gender.name))),
-                          DataCell(Center(child: Text(employee.role.name))),
+                          DataCell(
+                              Center(child: Text(employee.role?.name ?? ''))),
                           DataCell(
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,

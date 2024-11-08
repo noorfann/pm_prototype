@@ -1,6 +1,6 @@
 import 'package:core/core.dart';
 
-enum ProjectStatus { initial, loading, success, failure }
+enum ProjectStatus { loading, success, failure }
 
 enum ProjectOperation { fetch, add, delete, update }
 
@@ -13,7 +13,7 @@ class ProjectState {
   final ProjectOperation operation;
 
   ProjectState({
-    this.status = ProjectStatus.initial,
+    this.status = ProjectStatus.loading,
     this.projects = const [],
     this.error = ProjectError.none,
     this.operation = ProjectOperation.add,

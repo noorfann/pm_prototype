@@ -19,7 +19,7 @@ mixin _$Criteria {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   CriteriaType get criteriaType => throw _privateConstructorUsedError;
-  int get score => throw _privateConstructorUsedError;
+  int? get score => throw _privateConstructorUsedError;
 
   /// Create a copy of Criteria
   /// with the given fields replaced by the non-null parameter values.
@@ -33,7 +33,7 @@ abstract class $CriteriaCopyWith<$Res> {
   factory $CriteriaCopyWith(Criteria value, $Res Function(Criteria) then) =
       _$CriteriaCopyWithImpl<$Res, Criteria>;
   @useResult
-  $Res call({String id, String name, CriteriaType criteriaType, int score});
+  $Res call({String id, String name, CriteriaType criteriaType, int? score});
 }
 
 /// @nodoc
@@ -54,7 +54,7 @@ class _$CriteriaCopyWithImpl<$Res, $Val extends Criteria>
     Object? id = null,
     Object? name = null,
     Object? criteriaType = null,
-    Object? score = null,
+    Object? score = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -69,10 +69,10 @@ class _$CriteriaCopyWithImpl<$Res, $Val extends Criteria>
           ? _value.criteriaType
           : criteriaType // ignore: cast_nullable_to_non_nullable
               as CriteriaType,
-      score: null == score
+      score: freezed == score
           ? _value.score
           : score // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
     ) as $Val);
   }
 }
@@ -85,7 +85,7 @@ abstract class _$$CriteriaImplCopyWith<$Res>
       __$$CriteriaImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String name, CriteriaType criteriaType, int score});
+  $Res call({String id, String name, CriteriaType criteriaType, int? score});
 }
 
 /// @nodoc
@@ -104,7 +104,7 @@ class __$$CriteriaImplCopyWithImpl<$Res>
     Object? id = null,
     Object? name = null,
     Object? criteriaType = null,
-    Object? score = null,
+    Object? score = freezed,
   }) {
     return _then(_$CriteriaImpl(
       id: null == id
@@ -119,10 +119,10 @@ class __$$CriteriaImplCopyWithImpl<$Res>
           ? _value.criteriaType
           : criteriaType // ignore: cast_nullable_to_non_nullable
               as CriteriaType,
-      score: null == score
+      score: freezed == score
           ? _value.score
           : score // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
     ));
   }
 }
@@ -134,7 +134,7 @@ class _$CriteriaImpl implements _Criteria {
       {required this.id,
       required this.name,
       required this.criteriaType,
-      required this.score});
+      this.score});
 
   @override
   final String id;
@@ -143,7 +143,7 @@ class _$CriteriaImpl implements _Criteria {
   @override
   final CriteriaType criteriaType;
   @override
-  final int score;
+  final int? score;
 
   @override
   String toString() {
@@ -179,7 +179,7 @@ abstract class _Criteria implements Criteria {
       {required final String id,
       required final String name,
       required final CriteriaType criteriaType,
-      required final int score}) = _$CriteriaImpl;
+      final int? score}) = _$CriteriaImpl;
 
   @override
   String get id;
@@ -188,7 +188,7 @@ abstract class _Criteria implements Criteria {
   @override
   CriteriaType get criteriaType;
   @override
-  int get score;
+  int? get score;
 
   /// Create a copy of Criteria
   /// with the given fields replaced by the non-null parameter values.

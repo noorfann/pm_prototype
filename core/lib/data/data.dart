@@ -22,3 +22,6 @@ export 'mapper/project_mapper.dart';
 export 'mapper/criteria_mapper.dart';
 export 'mapper/assessment_mapper.dart';
 export 'mapper/assessment_detail_mapper.dart';
+
+// Models
+export 'models/criteria_detail_form.dart';

@@ -12,5 +12,5 @@ class Employee with _$Employee {
       required String name,
       required String email,
       required Gender gender,
-      required Role role}) = _Employee;
+      Role? role}) = _Employee;
 }

@@ -53,7 +53,7 @@ class CriteriaTable extends StatelessWidget {
                 horizontalMargin: 0,
                 minWidth: 600,
                 border: TableBorder.all(
-                  color: Theme.of(context).colorScheme.onSurface,
+                  color: Theme.of(context).colorScheme.outline,
                 ),
                 headingTextStyle: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -78,14 +78,14 @@ class CriteriaTable extends StatelessWidget {
                               style: TextStyle(color: Colors.white))),
                     ),
                   ),
-                  DataColumn(
-                    label: Container(
-                      color: Theme.of(context).colorScheme.primary,
-                      child: Center(
-                          child: Text('Nilai',
-                              style: TextStyle(color: Colors.white))),
-                    ),
-                  ),
+                  // DataColumn(
+                  //   label: Container(
+                  //     color: Theme.of(context).colorScheme.primary,
+                  //     child: Center(
+                  //         child: Text('Nilai',
+                  //             style: TextStyle(color: Colors.white))),
+                  //   ),
+                  // ),
                   DataColumn(
                     label: Container(
                       color: Theme.of(context).colorScheme.primary,
@@ -107,8 +107,8 @@ class CriteriaTable extends StatelessWidget {
                     .map((criteria) => DataRow(cells: [
                           DataCell(Center(child: Text(criteria.id.toString()))),
                           DataCell(Center(child: Text(criteria.name))),
-                          DataCell(
-                              Center(child: Text(criteria.score.toString()))),
+                          // DataCell(
+                          //     Center(child: Text(criteria.score.toString()))),
                           DataCell(
                               Center(child: Text(criteria.criteriaType.name))),
                           DataCell(

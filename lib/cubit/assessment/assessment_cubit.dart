@@ -168,7 +168,7 @@ class AssessmentCubit extends Cubit<AssessmentState> {
 
   void _resetState() {
     emit(state.copyWith(
-      status: AssessmentStatus.initial,
+      status: AssessmentStatus.loading,
       error: AssessmentError.none,
       operation: AssessmentOperation.fetch,
     ));

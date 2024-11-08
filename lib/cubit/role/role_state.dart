@@ -1,6 +1,6 @@
 import 'package:core/core.dart';
 
-enum RoleStatus { initial, loading, success, failure }
+enum RoleStatus { loading, success, failure }
 
 enum RoleOperation { fetch, add, delete, update }
 
@@ -13,7 +13,7 @@ class RoleState {
   final RoleOperation operation;
 
   RoleState({
-    this.status = RoleStatus.initial,
+    this.status = RoleStatus.loading,
     this.roles = const [],
     this.error = RoleError.none,
     this.operation = RoleOperation.add,

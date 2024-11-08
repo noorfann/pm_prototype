@@ -20,7 +20,7 @@ mixin _$Employee {
   String get name => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   Gender get gender => throw _privateConstructorUsedError;
-  Role get role => throw _privateConstructorUsedError;
+  Role? get role => throw _privateConstructorUsedError;
 
   /// Create a copy of Employee
   /// with the given fields replaced by the non-null parameter values.
@@ -34,9 +34,9 @@ abstract class $EmployeeCopyWith<$Res> {
   factory $EmployeeCopyWith(Employee value, $Res Function(Employee) then) =
       _$EmployeeCopyWithImpl<$Res, Employee>;
   @useResult
-  $Res call({String id, String name, String email, Gender gender, Role role});
+  $Res call({String id, String name, String email, Gender gender, Role? role});
 
-  $RoleCopyWith<$Res> get role;
+  $RoleCopyWith<$Res>? get role;
 }
 
 /// @nodoc
@@ -58,7 +58,7 @@ class _$EmployeeCopyWithImpl<$Res, $Val extends Employee>
     Object? name = null,
     Object? email = null,
     Object? gender = null,
-    Object? role = null,
+    Object? role = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -77,10 +77,10 @@ class _$EmployeeCopyWithImpl<$Res, $Val extends Employee>
           ? _value.gender
           : gender // ignore: cast_nullable_to_non_nullable
               as Gender,
-      role: null == role
+      role: freezed == role
           ? _value.role
           : role // ignore: cast_nullable_to_non_nullable
-              as Role,
+              as Role?,
     ) as $Val);
   }
 
@@ -88,8 +88,12 @@ class _$EmployeeCopyWithImpl<$Res, $Val extends Employee>
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $RoleCopyWith<$Res> get role {
-    return $RoleCopyWith<$Res>(_value.role, (value) {
+  $RoleCopyWith<$Res>? get role {
+    if (_value.role == null) {
+      return null;
+    }
+
+    return $RoleCopyWith<$Res>(_value.role!, (value) {
       return _then(_value.copyWith(role: value) as $Val);
     });
   }
@@ -103,10 +107,10 @@ abstract class _$$EmployeeImplCopyWith<$Res>
       __$$EmployeeImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String name, String email, Gender gender, Role role});
+  $Res call({String id, String name, String email, Gender gender, Role? role});
 
   @override
-  $RoleCopyWith<$Res> get role;
+  $RoleCopyWith<$Res>? get role;
 }
 
 /// @nodoc
@@ -126,7 +130,7 @@ class __$$EmployeeImplCopyWithImpl<$Res>
     Object? name = null,
     Object? email = null,
     Object? gender = null,
-    Object? role = null,
+    Object? role = freezed,
   }) {
     return _then(_$EmployeeImpl(
       id: null == id
@@ -145,10 +149,10 @@ class __$$EmployeeImplCopyWithImpl<$Res>
           ? _value.gender
           : gender // ignore: cast_nullable_to_non_nullable
               as Gender,
-      role: null == role
+      role: freezed == role
           ? _value.role
           : role // ignore: cast_nullable_to_non_nullable
-              as Role,
+              as Role?,
     ));
   }
 }
@@ -161,7 +165,7 @@ class _$EmployeeImpl with DiagnosticableTreeMixin implements _Employee {
       required this.name,
       required this.email,
       required this.gender,
-      required this.role});
+      this.role});
 
   @override
   final String id;
@@ -172,7 +176,7 @@ class _$EmployeeImpl with DiagnosticableTreeMixin implements _Employee {
   @override
   final Gender gender;
   @override
-  final Role role;
+  final Role? role;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -221,7 +225,7 @@ abstract class _Employee implements Employee {
       required final String name,
       required final String email,
       required final Gender gender,
-      required final Role role}) = _$EmployeeImpl;
+      final Role? role}) = _$EmployeeImpl;
 
   @override
   String get id;
@@ -232,7 +236,7 @@ abstract class _Employee implements Employee {
   @override
   Gender get gender;
   @override
-  Role get role;
+  Role? get role;
 
   /// Create a copy of Employee
   /// with the given fields replaced by the non-null parameter values.

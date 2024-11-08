@@ -10,7 +10,9 @@ class EmployeeMapper {
       name: json['name'] as String,
       email: json['email'] as String,
       gender: (json['gender'] == 'male') ? Gender.male : Gender.female,
-      role: RoleMapper.fromJson(json['role'] as Map<String, dynamic>),
+      role: (json['role'] != null)
+          ? RoleMapper.fromJson(json['role'] as Map<String, dynamic>)
+          : null,
     );
   }
 
@@ -19,7 +21,7 @@ class EmployeeMapper {
       'name': employee.name,
       'email': employee.email,
       'gender': (employee.gender == Gender.male) ? 'male' : 'female',
-      'role': employee.role.id,
+      'role': employee.role?.id,
     };
   }
 }

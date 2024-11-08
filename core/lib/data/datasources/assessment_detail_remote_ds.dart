@@ -26,12 +26,14 @@ class AssessmentDetailRemoteDS {
       final response = await _databases.listDocuments(
           databaseId: databaseId,
           collectionId: assessmentDetailCollectionId,
-          queries: [appwrite.Query.equal('assessment', assessmentId)]);
+          queries: [
+            appwrite.Query.equal('assessment', assessmentId),
+          ]);
       final result = response.documents
           .map((e) => AssessmentDetailMapper.fromJson(e.data))
           .toList();
 
-      logger.logInfo(result.toString());
+      logger.logInfo("AssessmentDetails ${result.toString()}");
       return Right(result);
     } catch (e) {
       logger.logError('failed to get AssessmentDetails ${e.toString()}');

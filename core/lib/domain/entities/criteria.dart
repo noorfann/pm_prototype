@@ -9,5 +9,5 @@ class Criteria with _$Criteria {
       {required String id,
       required String name,
       required CriteriaType criteriaType,
-      required int score}) = _Criteria;
+      int? score}) = _Criteria;
 }

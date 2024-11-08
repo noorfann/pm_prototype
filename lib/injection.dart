@@ -6,6 +6,7 @@ import 'package:pm_prototype/cubit/assessment/assessment_cubit.dart';
 import 'package:pm_prototype/cubit/criteria/criteria_cubit.dart';
 import 'package:pm_prototype/cubit/employee/employee_cubit.dart';
 import 'package:pm_prototype/cubit/menu/menu_cubit.dart';
+import 'package:pm_prototype/cubit/profile_matching/profile_matching_cubit.dart';
 import 'package:pm_prototype/cubit/project/project_cubit.dart';
 import 'package:pm_prototype/cubit/role/role_cubit.dart';
 
@@ -49,6 +50,9 @@ void _cubit() {
       addAssessmentUC: locator(),
       getAssessmentUC: locator(),
       getAssessmentDetailUC: locator()));
+  // Profile Matching cubit
+  locator.registerFactory<ProfileMatchingCubit>(
+      () => ProfileMatchingCubit(locator()));
 }
 
 void _usecases() {

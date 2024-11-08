@@ -118,7 +118,7 @@ class RoleCubit extends Cubit<RoleState> {
 
   void _resetState() {
     emit(state.copyWith(
-      status: RoleStatus.initial,
+      status: RoleStatus.loading,
       error: RoleError.none,
       operation: RoleOperation.fetch,
     ));

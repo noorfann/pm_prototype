@@ -1,6 +1,6 @@
 import 'package:core/core.dart';
 
-enum AssessmentStatus { initial, loading, success, failure }
+enum AssessmentStatus { loading, success, failure }
 
 enum AssessmentOperation { fetch, fetchDetail, add, delete, update }
 
@@ -14,7 +14,7 @@ class AssessmentState {
   final AssessmentOperation operation;
 
   AssessmentState({
-    this.status = AssessmentStatus.initial,
+    this.status = AssessmentStatus.loading,
     this.assessment = const [],
     this.assessmentDetail = const [],
     this.error = AssessmentError.none,

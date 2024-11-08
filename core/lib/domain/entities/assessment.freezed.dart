@@ -19,6 +19,7 @@ mixin _$Assessment {
   String get id => throw _privateConstructorUsedError;
   String get assessor => throw _privateConstructorUsedError;
   Employee get employee => throw _privateConstructorUsedError;
+  List<AssessmentDetail> get details => throw _privateConstructorUsedError;
 
   /// Create a copy of Assessment
   /// with the given fields replaced by the non-null parameter values.
@@ -33,7 +34,11 @@ abstract class $AssessmentCopyWith<$Res> {
           Assessment value, $Res Function(Assessment) then) =
       _$AssessmentCopyWithImpl<$Res, Assessment>;
   @useResult
-  $Res call({String id, String assessor, Employee employee});
+  $Res call(
+      {String id,
+      String assessor,
+      Employee employee,
+      List<AssessmentDetail> details});
 
   $EmployeeCopyWith<$Res> get employee;
 }
@@ -56,6 +61,7 @@ class _$AssessmentCopyWithImpl<$Res, $Val extends Assessment>
     Object? id = null,
     Object? assessor = null,
     Object? employee = null,
+    Object? details = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -70,6 +76,10 @@ class _$AssessmentCopyWithImpl<$Res, $Val extends Assessment>
           ? _value.employee
           : employee // ignore: cast_nullable_to_non_nullable
               as Employee,
+      details: null == details
+          ? _value.details
+          : details // ignore: cast_nullable_to_non_nullable
+              as List<AssessmentDetail>,
     ) as $Val);
   }
 
@@ -92,7 +102,11 @@ abstract class _$$AssessmentImplCopyWith<$Res>
       __$$AssessmentImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String assessor, Employee employee});
+  $Res call(
+      {String id,
+      String assessor,
+      Employee employee,
+      List<AssessmentDetail> details});
 
   @override
   $EmployeeCopyWith<$Res> get employee;
@@ -114,6 +128,7 @@ class __$$AssessmentImplCopyWithImpl<$Res>
     Object? id = null,
     Object? assessor = null,
     Object? employee = null,
+    Object? details = null,
   }) {
     return _then(_$AssessmentImpl(
       id: null == id
@@ -128,6 +143,10 @@ class __$$AssessmentImplCopyWithImpl<$Res>
           ? _value.employee
           : employee // ignore: cast_nullable_to_non_nullable
               as Employee,
+      details: null == details
+          ? _value._details
+          : details // ignore: cast_nullable_to_non_nullable
+              as List<AssessmentDetail>,
     ));
   }
 }
@@ -136,7 +155,11 @@ class __$$AssessmentImplCopyWithImpl<$Res>
 
 class _$AssessmentImpl implements _Assessment {
   const _$AssessmentImpl(
-      {required this.id, required this.assessor, required this.employee});
+      {required this.id,
+      required this.assessor,
+      required this.employee,
+      required final List<AssessmentDetail> details})
+      : _details = details;
 
   @override
   final String id;
@@ -144,10 +167,17 @@ class _$AssessmentImpl implements _Assessment {
   final String assessor;
   @override
   final Employee employee;
+  final List<AssessmentDetail> _details;
+  @override
+  List<AssessmentDetail> get details {
+    if (_details is EqualUnmodifiableListView) return _details;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_details);
+  }
 
   @override
   String toString() {
-    return 'Assessment(id: $id, assessor: $assessor, employee: $employee)';
+    return 'Assessment(id: $id, assessor: $assessor, employee: $employee, details: $details)';
   }
 
   @override
@@ -159,11 +189,13 @@ class _$AssessmentImpl implements _Assessment {
             (identical(other.assessor, assessor) ||
                 other.assessor == assessor) &&
             (identical(other.employee, employee) ||
-                other.employee == employee));
+                other.employee == employee) &&
+            const DeepCollectionEquality().equals(other._details, _details));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, assessor, employee);
+  int get hashCode => Object.hash(runtimeType, id, assessor, employee,
+      const DeepCollectionEquality().hash(_details));
 
   /// Create a copy of Assessment
   /// with the given fields replaced by the non-null parameter values.
@@ -178,7 +210,8 @@ abstract class _Assessment implements Assessment {
   const factory _Assessment(
       {required final String id,
       required final String assessor,
-      required final Employee employee}) = _$AssessmentImpl;
+      required final Employee employee,
+      required final List<AssessmentDetail> details}) = _$AssessmentImpl;
 
   @override
   String get id;
@@ -186,6 +219,8 @@ abstract class _Assessment implements Assessment {
   String get assessor;
   @override
   Employee get employee;
+  @override
+  List<AssessmentDetail> get details;
 
   /// Create a copy of Assessment
   /// with the given fields replaced by the non-null parameter values.
